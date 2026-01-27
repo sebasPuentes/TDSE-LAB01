@@ -31,7 +31,7 @@ Execute the cells sequentially to visualize data and observe the predictions.
 
 ## AWS SageMaker Execution Evidence
 
-To upload the notebooks to SageMaker, first log in to AWS Academy, start the lab, and create an environment following the step-by-step instructions on the right. Once created, click on the "Open Studio" option. Then, select the option to create a Code Editor and click "Run."
+To upload the notebooks to SageMaker, first log in to AWS Academy, start the lab, and create an environment following the step-by-step instructions on the right. Once created, click on the "Open Studio" option. Then, select the option to create a Code Editor and click "Run Space". Once opened, drag the files to the editor and they will open automatically.
 
 ![alt text](docs/1.jpeg)
 
