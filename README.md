@@ -32,13 +32,25 @@ Execute the cells sequentially to visualize data and observe the predictions.
 ## AWS SageMaker Execution Evidence
 
 To upload the notebooks to SageMaker, first log in to AWS Academy, start the lab, and create an environment following the step-by-step instructions on the right. Once created, click on the "Open Studio" option. Then, select the option to create a Code Editor and click "Run."
- 
+
+![alt text](docs/1.jpeg)
+
+![alt text](docs/2.jpeg)
+
+![alt text](docs/3.jpeg)
+
+![alt text](docs/4.jpg)
+
+Comparing both editors, from my point of view Sagemaker runs the notebooks a little faster than Visual Studio Code. In other respects, it takes me the same time.
+
 ## Built With
 
 * [Python](https://www.python.org/) - The programming language used
 * [Jupyter](https://jupyter.org/) - Interactive Computing
 * [Numpy](https://numpy.org/) - Scientific Computing
 * [Matplotlib](https://matplotlib.org/) - Data Visualization
+
+
 
 ## Authors
 
