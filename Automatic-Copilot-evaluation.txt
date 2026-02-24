@@ -1,0 +1,236 @@
+================================================================================
+AUTOMATIC COPILOT EVALUATION – TDSE LAB 01
+Teaching Assistant Grading Report
+================================================================================
+
+================================================================================
+SUMMARY
+================================================================================
+
+This repository addresses a well-scoped laboratory on stellar-luminosity
+regression from first principles. Both notebooks are present, use only the
+allowed scientific stack (NumPy + Matplotlib), and contain self-contained
+datasets. Notebook 1 implements linear regression competently, covering the
+mandatory cost surface, convergence plot, and multi-rate experiments. Notebook 2
+extends the work to polynomial regression with two features, correctly building
+the design matrix, implementing vectorized gradients, and covering all three
+mandatory items (M1/M2/M3 model comparison, w_MT interaction sweep, and
+inference demo). The main technical gaps are: (a) the non-vectorized gradient
+descent is only partially demonstrated (only the gradient function is looped;
+the descent itself still uses the vectorized version), (b) the learning-rate
+experiment in Notebook 1 lacks a convergence comparison plot and discussion, and
+(c) the pandas library is imported and used in Notebook 2, which is outside the
+stated allowed-library constraint. Cloud execution is evidenced by four
+SageMaker screenshots and a brief local-vs-cloud comparison. Overall the
+submission is solid and demonstrates adequate understanding of the topic.
+
+================================================================================
+GRADING BREAKDOWN (0.0 - 5.0 SCALE)
+================================================================================
+
+1. Repository Structure & Compliance          0.40 / 0.50
+   ─────────────────────────────────────────────────────
+   ✔  README.md present.
+   ✔  Two notebooks present with appropriate scope.
+   ✔  Datasets defined inline (numpy arrays) inside both notebooks.
+   ✔  NumPy and Matplotlib used exclusively for computation and plotting.
+   ✖  Notebook 2 imports and uses pandas (DataFrame.head()) for display;
+      pandas is not listed among the allowed libraries. Minor but explicit
+      violation of constraints. (-0.10)
+
+2. Notebook 1 – Linear Regression             1.60 / 2.00
+   ─────────────────────────────────────────────────────
+   ✔  Dataset scatter plot and non-linearity interpretation (Cell 6–7).
+   ✔  predict() and MSE/compute_cost() implemented correctly (Cells 9–10).
+   ✔  3-D cost surface plotted via meshgrid, with explanation (Cells 12–13).
+   ✔  Gradient formulas presented in LaTeX (Cell 14).
+   ✔  Non-vectorized gradient function (explicit loop) implemented (Cell 15).
+   ✔  Vectorized gradient function implemented (Cell 16).
+   ✔  gradient_descent() function runs and produces w_learned, b_learned
+      (Cell 18).
+   ✔  Convergence plot present (Cell 20).
+   ✔  Three learning rates tested: 0.001, 0.01, 0.05 (Cell 22).
+   ✔  Final fit scatter + line plot with error discussion (Cells 24–25).
+   ✔  Conceptual questions answered: meaning of w, limits of linearity
+      (Cell 26).
+   ✖  The gradient_descent loop always calls compute_gradients (vectorized).
+      The non-vectorized gradient function is computed once but never used
+      inside a full non-vectorized descent loop. The requirement for a
+      non-vectorized descent is only partially satisfied. (-0.15)
+   ✖  The multi-rate experiment (Cell 22) only prints the final loss;
+      there is no convergence comparison plot across learning rates and
+      no markdown discussion of the differences in behaviour. (-0.15)
+   ✖  Convergence discussion is minimal (plot present but no textual
+      analysis of convergence behaviour or chosen learning-rate trade-off).
+      (-0.10)
+
+3. Notebook 2 – Polynomial Regression         1.75 / 2.00
+   ─────────────────────────────────────────────────────
+   ✔  Scatter plot with temperature-encoded colour map (plasma) (Cell 8).
+   ✔  Feature engineering: [M, T, M², M·T] design matrix X (Cell 5).
+   ✔  Vectorized predict, compute_cost, and compute_gradient using
+      matrix operations (Cells 7, 9, 10).
+   ✔  gradient_descent function implemented and applied (Cell 12).
+   ✔  Convergence plots (linear and log scale) for the full model (Cell 13).
+   ✔  M1 [M,T], M2 [M,T,M²], M3 [M,T,M²,M·T] models trained and plotted
+      individually with convergence and predicted-vs-actual charts
+      (Cells 16–24). MANDATORY item satisfied.
+   ✔  Interaction cost analysis: w_MT sweep around learned value, cost
+      curve plotted with explanation (Cells 26–27). MANDATORY item satisfied.
+   ✔  Inference example: M=1.3, T=6600 → L≈4.60 with interpretation
+      (Cells 30–31). MANDATORY item satisfied.
+   ✖  pandas is imported and used (Cell 3, Cell 5). See compliance note.
+      (-0.10)
+   ✖  No explicit summary/comparison table or markdown cell contrasting
+      M1, M2, M3 final costs; only individual convergence plots are shown.
+      (-0.15)
+
+4. Cloud Execution Evidence (SageMaker)        0.45 / 0.50
+   ─────────────────────────────────────────────────────
+   ✔  README describes SageMaker environment creation step-by-step.
+   ✔  Four screenshots referenced (docs/1.jpeg, docs/2.jpeg, docs/3.jpeg,
+      docs/4.jpg) showing notebooks open in SageMaker with execution output.
+   ✔  Brief local-vs-cloud comparison included (last paragraph of the
+      SageMaker section).
+   ✖  Screenshots show execution but the visible plot evidence is limited
+      to one image; additional screenshot showing a rendered plot would
+      have been stronger evidence. (-0.05)
+
+================================================================================
+FINAL GRADE
+================================================================================
+
+Final grade: 4.20 / 5.0
+Status: PASS (≥ 3.0)
+
+================================================================================
+STRENGTHS
+================================================================================
+
+• Clean, well-structured code that is easy to follow; both notebooks
+  execute sequentially without dependency issues.
+• Correct mathematical formulation of MSE cost and gradient descent
+  update rules, supported by LaTeX derivations in Notebook 1.
+• 3-D cost surface in Notebook 1 is properly generated with meshgrid and
+  provides useful visual intuition about the convex landscape.
+• Notebook 2 covers all three mandatory experiments (M1/M2/M3 comparison,
+  w_MT sweep, inference demo) and correctly constructs the polynomial
+  design matrix with interaction terms.
+• Temperature-encoded scatter plot is a good multivariable visualization
+  choice.
+• SageMaker deployment evidence is thorough (four screenshots, process
+  described).
+• Conceptual answers to gradient-descent and model-limitation questions
+  are technically accurate.
+
+================================================================================
+ISSUES & MISSING ELEMENTS
+================================================================================
+
+• pandas is imported in Notebook 2 and used via DataFrame.head(); this
+  library is not permitted under the assignment constraints.
+• The non-vectorized gradient descent is only half-implemented: the loop
+  exists for the gradient computation but the full gradient_descent
+  function uses the vectorized version. A separate non-vectorized descent
+  loop should have been demonstrated.
+• The multi-learning-rate experiment (Notebook 1, Cell 22) reports only
+  final loss values; a convergence comparison plot overlaying curves for
+  all three rates is expected and missing.
+• No markdown discussion accompanies the convergence plot in Notebook 1
+  (Cell 20); discussion of convergence speed, stability, or oscillation
+  would be expected.
+• Notebook 2 has no summary comparing M1, M2, M3 final costs side-by-side,
+  making it harder to draw conclusions from the feature-selection
+  experiment.
+• The cost surface contour plot (2-D projection) is absent; only the
+  3-D surface is shown. A contour/heat-map view is a standard complement.
+
+================================================================================
+TA FEEDBACK TO STUDENT
+================================================================================
+
+Good work overall — you have demonstrated a solid grasp of the core concepts
+and successfully implemented all mandatory items. The code is readable, the
+mathematical derivations are correct, and the cloud execution is properly
+documented.
+
+To strengthen this submission for future assignments, focus on the following:
+
+1. Complete the non-vectorized gradient descent: implement a separate descent
+   loop that calls your compute_gradients_non_vectorized function at each
+   iteration, so the contrast between the two implementations is explicit.
+
+2. Enrich the learning-rate experiment: plot the cost-vs-iterations curves
+   for all three rates on the same figure and add a markdown cell discussing
+   which rate converges fastest, which diverges or oscillates, and why.
+
+3. Remove pandas (or justify its use): since it is not on the allowed-library
+   list, avoid importing it. A plain print of the numpy arrays or a simple
+   formatted text table achieves the same display goal without a policy
+   violation.
+
+4. Add a comparative summary for the feature-selection experiment: after
+   training M1, M2, and M3, print their final training costs in one place
+   and comment on which model is the best trade-off between complexity and
+   fit quality.
+
+5. Consider adding a 2-D contour plot of the cost surface alongside the 3-D
+   one; contour plots are easier to read and are commonly expected in this
+   type of assignment.
+
+These are targeted, achievable improvements that would bring the grade to the
+4.5–5.0 range.
+
+================================================================================
+AI-GENERATION ASSESSMENT (NON-GRADING – INFORMATIVE ONLY)
+================================================================================
+
+A. Qualitative Assessment
+──────────────────────────
+Indicators of AI generation:
+• The overall structure of both notebooks is textbook-standard and very
+  regular (setup → data → model → gradient → descent → experiments),
+  consistent with an AI-generated scaffold.
+• Docstrings (e.g., compute_cost, compute_gradient) follow a uniform
+  NumPy-style template that rarely appears in student code written from
+  scratch.
+• Markdown explanations are concise and generic with few subject-specific
+  elaborations or personal commentary.
+• Variable naming (w, b, alpha, dj_dw, dj_db, L_hat) follows course-
+  note conventions precisely, which may reflect AI assistance guided by
+  lecture slides.
+
+Indicators of human work:
+• The visualisation in Notebook 2 (Cell 8) is placed after the cost
+  function rather than immediately after data loading, suggesting a
+  non-linear editing process consistent with human iteration.
+• Cell 22 uses a simple print loop instead of the more polished multi-
+  rate plot an AI would typically generate unprompted.
+• Some cells appear to have minor structural inconsistencies (e.g., the
+  pandas import that adds no real functionality) that suggest partial
+  editing by a human.
+• The README contains a personal comparison ("from my point of view
+  SageMaker runs... a little faster") that reads as genuine student
+  observation.
+
+B. Quantitative Estimate
+──────────────────────────
+  Code:                  ~55 %
+  Explanations/markdown: ~65 %
+  README:                ~35 %
+
+C. Commentary
+──────────────
+The code shows signs of AI assistance for boilerplate functions and
+docstrings, while the higher-level orchestration cells and README appear
+more student-authored. The explanatory markdown cells are brief and
+phrased generically, which may reflect AI-generated summaries lightly
+edited by the student. The README's personalised voice and the minor
+structural inconsistencies in the notebooks introduce enough idiosyncrasy
+to suggest meaningful human involvement throughout.
+
+This assessment is observational and does not imply misconduct.
+
+================================================================================
+END OF REPORT
+================================================================================
